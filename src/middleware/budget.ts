@@ -49,7 +49,7 @@ export const validateBudgetInput = async (req: Request, res: Response, next: Nex
         .run(req)
     await body('amount')
         .notEmpty().withMessage('La cantidad del presupuesto no puede ir vacia')
-        .isNumeric().withMessage('Cantidad no valida')
+        .isNumeric().withMessage('Cantidad no válida')
         .custom(value => value > 0).withMessage('El presupuesto debe ser mayor a 0')
         .run(req)
     next()

@@ -1,2 +1,6 @@
 # Archivos de entorno
 .env*
+
+node_modules/
+package.json
+dist
