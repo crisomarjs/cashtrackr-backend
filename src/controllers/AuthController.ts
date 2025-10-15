@@ -17,11 +17,12 @@ export class AuthController {
         }
 
         try {
-            const user = new User(req.body)
+            const user = await User.create(req.body)
             user.password = await hashPassword(password)
-            user.token = generateToken()
-            await user.save()
+            const token = generateToken()
+            user.token = token
 
+            await user.save()
             await AuthEmail.sendConfirmationEmail({
                 name: user.name,
                 email: user.email,
