@@ -5,7 +5,11 @@ import Expense from "../models/Expense"
 export class BudgetController {
     static getAll = async (req: Request, res: Response) => {
         try {
-            const budgets = await Budget.findAll({})
+            const budgets = await Budget.findAll({
+                where:{
+                    userId: req.user.id
+                }
+            })
             res.json(budgets)
         } catch (error) {
             res.status(500).json({ error: 'Hubo un error' })
@@ -15,6 +19,7 @@ export class BudgetController {
     static create = async (req: Request, res: Response) => {
         try {
             const budget = new Budget(req.body)
+            budget.userId = req.user.id
             await budget.save()
             res.status(201).json('Presupuesto Creado Correctamente')
         } catch (error) {
